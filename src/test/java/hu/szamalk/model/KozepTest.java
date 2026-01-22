@@ -1,11 +1,13 @@
 package hu.szamalk.model;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class KozepTest {
     Kozep tt;
 
+    @BeforeEach
     public void setup(){
         tt = new Kozep();
     }
@@ -48,37 +50,60 @@ public class KozepTest {
 
     @Test
     void getNotNullMatrix0th() {
-        setup();
         Assertions.assertNotNull(tt.getMatrix()[0][0]);
     }
 
     @Test
     void getNotNullFureszes0th() {
-        setup();
         Assertions.assertNotNull(tt.getFureszes()[0][0]);
     }
 
     @Test
     void getHas1Matrix() {
-        setup();
         Assertions.assertEquals(has1(tt.getMatrix()), true);
     }
 
     @Test
     void getHas1Fureszes() {
-        setup();
         Assertions.assertEquals(has1(tt.getFureszes()), true);
     }
 
     @Test
     void getHas1KozepenMatrix(){
-        setup();
         has1Kozepen(tt.getMatrix());
     }
 
     @Test
     void getHas1KozepenFureszes(){
-        setup();
         has1Kozepen(tt.getFureszes());
+    }
+
+    @Test
+    void matrixNemValtozhat(){
+        int origin = tt.getMatrix()[0][0];
+        tt.getMatrix()[0][0]= tt.getMatrix()[0][0] - 1;
+        System.out.println("Origin: " + origin);
+        System.out.println(tt.getMatrix()[0][0]);
+        Assertions.assertEquals(tt.getMatrix()[0][0], origin);
+    }
+
+    @Test
+    void fureszesNemValtozhat(){
+        int origin = tt.getFureszes()[0][0];
+        tt.getFureszes()[0][0] = tt.getFureszes()[0][0] - 1;
+        Assertions.assertEquals(tt.getFureszes()[0][0], origin);
+    }
+
+    @Test
+    void ezTiz(){
+        Assertions.assertEquals(tt.getTomb10().length, 10);
+    }
+
+    @Test
+    void vanParatlan(){
+        int[] yee = tt.getTomb10();
+        for(int i = 0; i < yee.length; i++){
+            Assertions.assertEquals(yee[i] % 2 == 0, true);
+        }
     }
 }
